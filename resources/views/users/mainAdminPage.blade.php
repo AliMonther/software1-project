@@ -28,7 +28,7 @@
   <li class="nav-item">
     <a class="nav-link" href="editProduct">edit Product</a>
   </li> 
-  <form method="POST" action="showProducts" class="form-inline my-2 my-lg-0" >
+  <form method="POST" action="showProduct" class="form-inline my-2 my-lg-0" >
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">products list</button>
       </form>
  

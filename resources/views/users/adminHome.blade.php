@@ -19,7 +19,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     
   
 
@@ -46,11 +46,11 @@
     </div>
   </nav>
 
-<ul class="list-group">
+  <ul class="list-group">
   
- @foreach($allProducts as $product)
- <li class="list-group-item"><a href="#"> {{$product->name}} </a></li>
- @endforeach
-</ul>
-
+  @foreach($allProducts as $products)
+  <li class="list-group-item"><a href="#"> {{$products->name}} </a></li>
+  @endforeach
+ </ul>
  </body>
+ </html>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use  App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
+ //------------------------------------------
 
 class userConstroller extends Controller
 {
@@ -17,22 +18,29 @@ class userConstroller extends Controller
     {
         return view('welcome');
     }
-
+ //------------------------------------------
+/**
+ * param1:request 
+ * @return active view or Error view
+ * check if user exist or no 
+ * if no 
+ * send random number to his email and @return activation view
+ * else
+ * @return Error view 
+ */
     public function RegisterUser(Request $request)
     { $viewName="";
       $getUserInfo = Customer:: where('email','=',$request->email)->first();
         if( $getUserInfo = Customer:: where('email','=',$request->email)->first() == null)
         {  
-           
-            $code="12656";
+           $code="12656";
             Mail :: send(['text'=>'mail'],['tempUser',$request],function($message) use ($request)
                 {
                 $message->from('ali.monther97@gmail.com','aliMonther');
                 $message->to($request->email ,$request->userName)->subject('P-123456');
-               
                 }
             );
-             $viewName ='users.activationUserAccount';
+            $viewName ='users.activationUserAccount';
         
         }
         else 
@@ -40,23 +48,30 @@ class userConstroller extends Controller
              $viewName = 'users.errorRegister';
             }    
           $arr = Array('userName'=>$request->userName,
-          'password'=>$request->password,
-          'email'=>$request->email,
-          'phoneNumber'=>$request->phoneNumber,
-          'gender'=>$request->gender,
-          'age'=>$request->age,
-          'address'=>$request->address
+        'password'=>$request->password,
+        'email'=>$request->email,
+        'phoneNumber'=>$request->phoneNumber,
+        'gender'=>$request->gender,
+        'age'=>$request->age,
+        'address'=>$request->address
           
         );
-        return view($viewName,$arr);
+ return view($viewName,$arr);
   
     }
 
+ //------------------------------------------
 
     public function printInfo(REQUEST $request3 )
     {
         dd($request3->all());
     }
+//------------------------------------------
+/**
+ * param1:request 
+ * @return main page view or @return register form view
+ * 
+ */
     public function userValid(REQUEST $request)
     { 
         $userName = Input::get('userName');
@@ -96,14 +111,19 @@ class userConstroller extends Controller
  return view($viewName,$arr);
 
     }
-  
+ //------------------------------------------
+/**
+ * param1:request
+ * @return main customer view or @return register form view
+ * take user name and password from customer and chek his information
+ */
     public function loginCustomer(REQUEST $request)
     {
        $viewName="";
        $customerCheck = Customer :: where('email','=',$request->email)->first();
        $arr = Array('email'=>$customerCheck->email,'password'=>$customerCheck->password);
       
-    if(  $request->email=='ali.monther97@gmail.com' )
+    if(  $request->email=='ali.monther97@gmail.com' &&  $request->password=='123456' )
     {   
              $viewName='users.mainAdminPage';
     
@@ -126,8 +146,12 @@ class userConstroller extends Controller
     }
    
  //------------------------------------------
-  
-    public function showProducts()
+  /**
+   * param1:request
+   * @return adminHome view 
+   * get all products from DB and show it 
+   */
+    public function showProduct(REQUEST $request)
     {
         $allProducts = Product ::all();
            $arr = Array('allProducts'=>$allProducts);
